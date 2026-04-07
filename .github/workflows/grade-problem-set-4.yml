@@ -29,4 +29,4 @@ jobs:
             - name: "Run Problem Set 4 tests"
               run: >
                   pytest .github/python_tests/test_problem_set_4.py
-                  -v --tb=short --no-header --color=yes
+                  -v --tb=short --no-header --color=yes -s
