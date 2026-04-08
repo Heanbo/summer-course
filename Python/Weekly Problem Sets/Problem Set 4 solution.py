@@ -84,34 +84,111 @@ def fitness_report(roster: dict[str, dict[str, object]]) -> dict[str, list[str]]
     return bands
 
 
+# ── Problem 2 ─────────────────────────────────────────────────────────────────
+
+def can_make(recipe_ingredients: list[str], pantry_set: set[str]) -> bool:
+    for ingredient in recipe_ingredients:
+        if ingredient not in pantry_set:
+            return False
+    return True
+
+
+def missing_ingredients(recipe_ingredients: list[str], pantry_set: set[str]) -> list[str]:
+    missing = []
+    for ingredient in recipe_ingredients:
+        if ingredient not in pantry_set:
+            missing.append(ingredient)
+    missing.sort()
+    return missing
+
+
+def check_recipes(recipes: dict[str, list[str]], pantry_set: set[str]) -> None:
+    print("=== RECIPE CHECKER ===")
+
+    all_ingredients = set()
+
+    for recipe_name, ingredients in recipes.items():
+        for ingredient in ingredients:
+            all_ingredients.add(ingredient)
+
+        if can_make(ingredients, pantry_set):
+            print(f"{recipe_name:<14}: CAN MAKE ✓")
+        else:
+            missing = missing_ingredients(ingredients, pantry_set)
+            print(f"{recipe_name:<14}: MISSING — {missing}")
+
+    unique = list(all_ingredients)
+    unique.sort()
+    print(f"\nAll unique ingredients ({len(unique)}): {unique}")
+
+
+def add_ingredients(pantry_set: set[str], extra_ingredients: list[str]) -> set[str]:
+    for ingredient in extra_ingredients:
+        pantry_set.add(ingredient)
+    return pantry_set
+
+
 if __name__ == "__main__":
-    reports = [
-        "SANTOS | Private | Fitness:91 | Status:available",
-        "KOWALSKI | Corporal | Fitness:74 | Status:deployed",
-        "OKAFOR | Sergeant | Fitness:88 | Status:available",
-        "BRIGGS | Private | Fitness:55 | Status:available",
-        "NAKAMURA | Corporal | Fitness:82 | Status:deployed",
-        "REYES | Sergeant | Fitness:79 | Status:available",
-    ]
+    TESTING_PROBLEM = 1
 
-    roster, ranks = process_reports(reports)
+    if TESTING_PROBLEM == 1:
+        reports = [
+            "SANTOS | Private | Fitness:91 | Status:available",
+            "KOWALSKI | Corporal | Fitness:74 | Status:deployed",
+            "OKAFOR | Sergeant | Fitness:88 | Status:available",
+            "BRIGGS | Private | Fitness:55 | Status:available",
+            "NAKAMURA | Corporal | Fitness:82 | Status:deployed",
+            "REYES | Sergeant | Fitness:79 | Status:available",
+        ]
 
-    print("=== ROSTER LOADED ===")
-    print(f"{len(roster)} soldiers on record.")
-    print(f"Ranks on file: {ranks}\n")
+        roster, ranks = process_reports(reports)
 
-    show_available(roster)
+        print("=== ROSTER LOADED ===")
+        print(f"{len(roster)} soldiers on record.")
+        print(f"Ranks on file: {ranks}\n")
 
-    dispatch(roster, "Santos")
-    dispatch(roster, "Kowalski")
-    print("\nUpdated status:")
-    for name in ["Santos", "Kowalski"]:
-        info = roster.get(name.title())
-        status = "deployed" if info.get("deployed") else "available"
-        print(f"  {name:8}: {status}")
+        show_available(roster)
 
-    # Optional challenge output
-    print("\nFitness report:")
-    report = fitness_report(roster)
-    for band in ("high", "medium", "low"):
-        print(f"  {band.title():6}: {report[band]}")
+        dispatch(roster, "Santos")
+        dispatch(roster, "Kowalski")
+        print("\nUpdated status:")
+        for name in ["Santos", "Kowalski"]:
+            info = roster.get(name.title())
+            status = "deployed" if info.get("deployed") else "available"
+            print(f"  {name:8}: {status}")
+
+        print("\nFitness report:")
+        report = fitness_report(roster)
+        for band in ("high", "medium", "low"):
+            print(f"  {band.title():6}: {report[band]}")
+
+    elif TESTING_PROBLEM == 2:
+        recipes = {
+            "omelette":       ["eggs", "butter", "salt", "pepper", "cheese"],
+            "pancakes":       ["flour", "eggs", "milk", "butter", "sugar", "salt"],
+            "tomato pasta":   ["pasta", "tomatoes", "garlic", "olive oil", "salt", "pepper"],
+            "grilled cheese": ["bread", "cheese", "butter"],
+        }
+        pantry = ["eggs", "butter", "salt", "pepper", "cheese", "milk", "bread", "garlic"]
+        pantry_set = set(pantry)
+
+        check_recipes(recipes, pantry_set)
+
+        raw = input("\nExtra ingredients you have (comma-separated): ")
+        extras = []
+        for item in raw.split(","):
+            extras.append(item.strip())
+        pantry_set = add_ingredients(pantry_set, extras)
+
+        print()
+        check_recipes(recipes, pantry_set)
+
+    elif TESTING_PROBLEM == 3:
+        pass
+
+    elif TESTING_PROBLEM == 4:
+        pass
+
+    else:
+        print("There are only 4 problems!")
+

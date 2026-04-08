@@ -110,8 +110,7 @@ pantry = ["eggs", "butter", "salt", "pepper", "cheese", "milk", "bread", "garlic
 - Convert `pantry` to a set for efficient lookups.
 - Write a function `can_make(recipe_ingredients, pantry_set)` that returns `True` if every ingredient is in the pantry, `False` otherwise.
 - Write a function `missing_ingredients(recipe_ingredients, pantry_set)` that returns a **sorted list** of any ingredients not in the pantry. Use `.sort()` or `sorted()`.
-- Use a `for` loop to go through each recipe, call both functions, and print whether it can be made and — if not — what's missing.
-- At the end, print a list of all **unique ingredients** across all recipes, sorted alphabetically. Use a set and `.sort()`.
+- Write a function `check_recipes(recipes, pantry_set)` that uses a `for` loop to go through each recipe, calls both functions above, and prints whether it can be made and — if not — what's missing. At the end, print a list of all **unique ingredients** across all recipes, sorted alphabetically. Use a set and `.sort()`.
 
 **Expected output:**
 
@@ -122,12 +121,12 @@ pancakes       : MISSING — ['flour', 'sugar']
 tomato pasta   : MISSING — ['olive oil', 'pasta', 'tomatoes']
 grilled cheese : CAN MAKE ✓
 
-All unique ingredients (12): ['bread', 'butter', 'cheese', 'eggs', ...]
+All unique ingredients (13): ['bread', 'butter', 'cheese', 'eggs', ...]
 ```
 
 ### Challenge
 
-Ask the user to type in a comma-separated list of extra ingredients they have on hand (e.g. `"flour, pasta, tomatoes"`). Use `.split(",")` and `.strip()` to parse the input, add the new items to the pantry set, and re-run the recipe checker. Print which recipes became newly available.
+Write a function `add_ingredients(pantry_set, extra_ingredients)` that takes the current pantry set and a list of extra ingredient strings, adds them to the pantry set, and returns it. In your `__main__` block, ask the user for a comma-separated list of extra ingredients, parse them with `.split(",")` and `.strip()`, pass them to `add_ingredients()`, then call `check_recipes()` again and print which recipes became newly available.
 
 ---
 

@@ -341,3 +341,226 @@ class TestFitnessReport:
                 f"Got: {names}\n"
                 f"Tip: call .sort() on each band list before returning."
             )
+
+
+# ---------------------------------------------------------------------------
+# Problem 2 shared data
+# ---------------------------------------------------------------------------
+
+RECIPES = {
+    "omelette":       ["eggs", "butter", "salt", "pepper", "cheese"],
+    "pancakes":       ["flour", "eggs", "milk", "butter", "sugar", "salt"],
+    "tomato pasta":   ["pasta", "tomatoes", "garlic", "olive oil", "salt", "pepper"],
+    "grilled cheese": ["bread", "cheese", "butter"],
+}
+
+PANTRY = {"eggs", "butter", "salt", "pepper", "cheese", "milk", "bread", "garlic"}
+
+
+# ===========================================================================
+# can_make()
+# ===========================================================================
+class TestCanMake:
+    """Tests for can_make(recipe_ingredients, pantry_set) -> bool"""
+
+    def test_function_exists(self, student):
+        assert_has_function(student, "can_make")
+
+    def test_returns_true_when_all_ingredients_present(self, student):
+        result = student.can_make(RECIPES["omelette"], PANTRY)
+        assert result is True, (
+            "can_make() should return True for 'omelette' — all ingredients are in the pantry.\n"
+            f"  Recipe    : {RECIPES['omelette']}\n"
+            f"  Pantry    : {PANTRY}\n"
+            f"  Your result: {result}"
+        )
+
+    def test_returns_true_for_grilled_cheese(self, student):
+        result = student.can_make(RECIPES["grilled cheese"], PANTRY)
+        assert result is True, (
+            "can_make() should return True for 'grilled cheese' — bread, cheese, and butter are all in the pantry.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_returns_false_when_ingredients_missing(self, student):
+        result = student.can_make(RECIPES["pancakes"], PANTRY)
+        assert result is False, (
+            "can_make() should return False for 'pancakes' — flour and sugar are not in the pantry.\n"
+            f"  Recipe    : {RECIPES['pancakes']}\n"
+            f"  Pantry    : {PANTRY}\n"
+            f"  Your result: {result}"
+        )
+
+    def test_returns_false_for_tomato_pasta(self, student):
+        result = student.can_make(RECIPES["tomato pasta"], PANTRY)
+        assert result is False, (
+            "can_make() should return False for 'tomato pasta' — pasta, tomatoes, and olive oil are missing.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_returns_bool_not_truthy(self, student):
+        result = student.can_make(RECIPES["omelette"], PANTRY)
+        assert isinstance(result, bool), (
+            f"can_make() must return a bool (True or False), not {type(result).__name__}.\n"
+            "Your loop should end with  return True  and return False on a miss."
+        )
+
+    def test_empty_recipe_always_makeable(self, student):
+        result = student.can_make([], PANTRY)
+        assert result is True, (
+            "can_make() with an empty ingredient list should return True — nothing is missing.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_expanded_pantry_makes_pancakes_possible(self, student):
+        bigger_pantry = PANTRY | {"flour", "sugar"}
+        result = student.can_make(RECIPES["pancakes"], bigger_pantry)
+        assert result is True, (
+            "With flour and sugar added to the pantry, can_make() should return True for 'pancakes'.\n"
+            f"  Your result: {result}"
+        )
+
+
+# ===========================================================================
+# missing_ingredients()
+# ===========================================================================
+class TestMissingIngredients:
+    """Tests for missing_ingredients(recipe_ingredients, pantry_set) -> list[str]"""
+
+    def test_function_exists(self, student):
+        assert_has_function(student, "missing_ingredients")
+
+    def test_returns_list(self, student):
+        result = student.missing_ingredients(RECIPES["pancakes"], PANTRY)
+        assert isinstance(result, list), (
+            f"missing_ingredients() must return a list, got {type(result).__name__}."
+        )
+
+    def test_correct_missing_for_pancakes(self, student):
+        result = student.missing_ingredients(RECIPES["pancakes"], PANTRY)
+        assert set(result) == {"flour", "sugar"}, (
+            "For 'pancakes', the missing ingredients are flour and sugar.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_correct_missing_for_tomato_pasta(self, student):
+        result = student.missing_ingredients(RECIPES["tomato pasta"], PANTRY)
+        assert set(result) == {"pasta", "tomatoes", "olive oil"}, (
+            "For 'tomato pasta', the missing ingredients are pasta, tomatoes, and olive oil.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_result_is_sorted(self, student):
+        result = student.missing_ingredients(RECIPES["tomato pasta"], PANTRY)
+        assert result == sorted(result), (
+            "missing_ingredients() must return a sorted list.\n"
+            f"  Your result  : {result}\n"
+            f"  Sorted result: {sorted(result)}\n"
+            "Tip: call .sort() on the list before returning, or use sorted()."
+        )
+
+    def test_empty_when_all_present(self, student):
+        result = student.missing_ingredients(RECIPES["omelette"], PANTRY)
+        assert result == [], (
+            "missing_ingredients() should return an empty list when all ingredients are in the pantry.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_empty_recipe_returns_empty_list(self, student):
+        result = student.missing_ingredients([], PANTRY)
+        assert result == [], (
+            "missing_ingredients() with an empty ingredient list should return [].\n"
+            f"  Your result: {result}"
+        )
+
+
+# ===========================================================================
+# check_recipes()
+# ===========================================================================
+class TestCheckRecipes:
+    """Tests for check_recipes(recipes, pantry_set) -> None  (prints output)"""
+
+    def test_function_exists(self, student):
+        assert_has_function(student, "check_recipes")
+
+    def test_makeable_recipes_shown(self, student, capsys):
+        student.check_recipes(RECIPES, PANTRY)
+        output = capsys.readouterr().out
+        assert "omelette" in output.lower(), (
+            "check_recipes() output should mention 'omelette' (it can be made).\n"
+            f"Your output:\n{output}"
+        )
+        assert "grilled cheese" in output.lower(), (
+            "check_recipes() output should mention 'grilled cheese' (it can be made).\n"
+            f"Your output:\n{output}"
+        )
+
+    def test_missing_recipes_shown(self, student, capsys):
+        student.check_recipes(RECIPES, PANTRY)
+        output = capsys.readouterr().out
+        assert "pancakes" in output.lower(), (
+            "check_recipes() output should mention 'pancakes' (ingredients are missing).\n"
+            f"Your output:\n{output}"
+        )
+        assert "tomato pasta" in output.lower(), (
+            "check_recipes() output should mention 'tomato pasta' (ingredients are missing).\n"
+            f"Your output:\n{output}"
+        )
+
+    def test_missing_ingredients_appear_in_output(self, student, capsys):
+        student.check_recipes(RECIPES, PANTRY)
+        output = capsys.readouterr().out
+        for ingredient in ("flour", "sugar", "pasta", "tomatoes"):
+            assert ingredient in output, (
+                f"'{ingredient}' is missing from the pantry and should appear in check_recipes() output.\n"
+                f"Your output:\n{output}"
+            )
+
+    def test_unique_ingredient_count_printed(self, student, capsys):
+        student.check_recipes(RECIPES, PANTRY)
+        output = capsys.readouterr().out
+        assert "13" in output, (
+            "check_recipes() should print the count of unique ingredients across all recipes.\n"
+            "There are 13 unique ingredients in the sample data — make sure that number appears in the output.\n"
+            f"Your output:\n{output}"
+        )
+
+
+# ===========================================================================
+# add_ingredients()   [Challenge]
+# ===========================================================================
+@pytest.mark.challenge
+class TestAddIngredients:
+    """Tests for add_ingredients(pantry_set, extra_ingredients) -> set[str]"""
+
+    def test_function_exists(self, student):
+        assert_has_function(student, "add_ingredients")
+
+    def test_returns_set(self, student):
+        result = student.add_ingredients(set(PANTRY), ["flour"])
+        assert isinstance(result, set), (
+            f"add_ingredients() must return a set, got {type(result).__name__}."
+        )
+
+    def test_new_ingredients_present(self, student):
+        result = student.add_ingredients(set(PANTRY), ["flour", "sugar"])
+        assert "flour" in result and "sugar" in result, (
+            "add_ingredients() should add 'flour' and 'sugar' to the pantry set.\n"
+            f"  Your result: {result}"
+        )
+
+    def test_original_ingredients_preserved(self, student):
+        result = student.add_ingredients(set(PANTRY), ["flour"])
+        assert PANTRY.issubset(result), (
+            "add_ingredients() must keep the original pantry items — don't replace them.\n"
+            f"  Original pantry: {PANTRY}\n"
+            f"  Your result    : {result}"
+        )
+
+    def test_empty_extras_returns_unchanged(self, student):
+        pantry_copy = set(PANTRY)
+        result = student.add_ingredients(pantry_copy, [])
+        assert result == PANTRY, (
+            "add_ingredients() with an empty extras list should return the pantry unchanged.\n"
+            f"  Your result: {result}"
+        )
