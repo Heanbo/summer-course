@@ -526,6 +526,69 @@ class TestCheckRecipes:
 
 
 # ===========================================================================
+# Pantry.add_ingredients()   [Challenge]
+# ===========================================================================
+@pytest.mark.challenge
+class TestPantryAddIngredients:
+    """Challenge tests for Pantry.add_ingredients() method"""
+
+    def test_add_single_ingredient(self, student):
+        pantry = student.Pantry(list(PANTRY_ITEMS))
+        pantry.add_ingredients(["flour"])
+        assert pantry.has("flour") is True, (
+            "After adding 'flour', pantry.has('flour') should return True."
+        )
+
+    def test_add_multiple_ingredients(self, student):
+        pantry = student.Pantry(list(PANTRY_ITEMS))
+        pantry.add_ingredients(["flour", "sugar", "olive oil"])
+        assert pantry.has("flour") is True, "Pantry should contain 'flour' after adding."
+        assert pantry.has("sugar") is True, "Pantry should contain 'sugar' after adding."
+        assert pantry.has("olive oil") is True, "Pantry should contain 'olive oil' after adding."
+
+    def test_original_ingredients_preserved(self, student):
+        pantry = student.Pantry(list(PANTRY_ITEMS))
+        pantry.add_ingredients(["flour"])
+        for ingredient in PANTRY_ITEMS:
+            assert pantry.has(ingredient) is True, (
+                f"Original ingredient '{ingredient}' should still be in pantry after adding new items."
+            )
+
+    def test_duplicate_ingredients_handled(self, student):
+        pantry = student.Pantry(["eggs", "milk"])
+        pantry.add_ingredients(["eggs", "flour"])  # eggs is a duplicate
+        assert pantry.has("eggs") is True, "Pantry should still contain 'eggs'."
+        assert pantry.has("flour") is True, "Pantry should contain newly added 'flour'."
+
+    def test_empty_list_doesnt_break(self, student):
+        pantry = student.Pantry(list(PANTRY_ITEMS))
+        original_items = pantry.get_items()
+        pantry.add_ingredients([])
+        assert pantry.get_items() == original_items, (
+            "Adding an empty list should not change the pantry contents."
+        )
+
+    def test_makes_recipes_available(self, student):
+        """Integration test: adding ingredients should make new recipes available"""
+        recipes = student.create_recipes(RECIPE_DATA)
+        pantry = student.Pantry(list(PANTRY_ITEMS))
+        
+        # Pancakes should not be makeable initially
+        pancake_recipe = [r for r in recipes if r.name == "pancakes"][0]
+        assert pancake_recipe.can_make(pantry.get_items()) is False, (
+            "Pancakes should not be makeable before adding flour and sugar."
+        )
+        
+        # Add the missing ingredients
+        pantry.add_ingredients(["flour", "sugar"])
+        
+        # Now pancakes should be makeable
+        assert pancake_recipe.can_make(pantry.get_items()) is True, (
+            "Pancakes should be makeable after adding flour and sugar."
+        )
+
+
+# ===========================================================================
 # Problem 3: LyricAnalyzer class
 # ===========================================================================
 SAMPLE_LYRICS = """
@@ -605,13 +668,21 @@ class TestLyricAnalyzerClass:
         assert len(output) > 0, "print_report() should produce some output."
         assert "we" in output.lower(), "print_report() should include word counts."
 
-    def test_filter_stopwords_method_exists(self, student):
+
+# ===========================================================================
+# LyricAnalyzer.filter_stopwords()   [Challenge]
+# ===========================================================================
+@pytest.mark.challenge
+class TestFilterStopwords:
+    """Challenge tests for LyricAnalyzer.filter_stopwords() method"""
+
+    def test_method_exists(self, student):
         analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
         assert hasattr(
             analyzer, "filter_stopwords"
         ), "LyricAnalyzer must have a 'filter_stopwords()' method."
 
-    def test_filter_stopwords_works(self, student):
+    def test_removes_stopwords(self, student):
         analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
         stop_words = {"we", "you", "your"}
         original_count = len(analyzer.words)
@@ -619,6 +690,77 @@ class TestLyricAnalyzerClass:
         new_count = len(analyzer.words)
         assert new_count < original_count, (
             "After filtering stopwords, the word list should be shorter."
+        )
+
+    def test_stopwords_actually_removed(self, student):
+        analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
+        stop_words = {"we", "will"}
+        analyzer.filter_stopwords(stop_words)
+        word_count = analyzer.count_words()
+        assert "we" not in word_count, (
+            "'we' should not appear in word count after being filtered out."
+        )
+        assert "will" not in word_count, (
+            "'will' should not appear in word count after being filtered out."
+        )
+
+    def test_non_stopwords_preserved(self, student):
+        analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
+        stop_words = {"we", "you", "your"}
+        analyzer.filter_stopwords(stop_words)
+        word_count = analyzer.count_words()
+        # Words that should still be there
+        assert "rock" in word_count, "'rock' should still be in the word list."
+        assert "big" in word_count, "'big' should still be in the word list."
+
+    def test_empty_stopwords_no_change(self, student):
+        analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
+        original_count = len(analyzer.words)
+        analyzer.filter_stopwords(set())  # Empty set
+        new_count = len(analyzer.words)
+        assert new_count == original_count, (
+            "Filtering with an empty stopword set should not change the word list."
+        )
+
+    def test_changes_most_common_word(self, student):
+        """Integration test: filtering stopwords should change the most common word"""
+        analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
+        
+        # Before filtering, "we" or "will" should be most common (both appear 6 times)
+        original_most_common, original_count = analyzer.most_common_word()
+        assert original_most_common in ["we", "will"], (
+            f"Most common word should be 'we' or 'will' before filtering, got '{original_most_common}'"
+        )
+        
+        # Filter out the stop words
+        stop_words = {"a", "the", "you", "your", "in", "on", "we", "be", "got", "will"}
+        analyzer.filter_stopwords(stop_words)
+        
+        # After filtering, a different word should be most common
+        filtered_most_common, filtered_count = analyzer.most_common_word()
+        assert filtered_most_common != "we" and filtered_most_common != "will", (
+            f"After filtering, most common word should not be 'we' or 'will', got '{filtered_most_common}'"
+        )
+        # "big" and "rock" both appear 3 times and could be most common after filtering
+        assert filtered_most_common in ["big", "rock"], (
+            f"After filtering stopwords, 'big' or 'rock' should be most common (3 times), got '{filtered_most_common}'"
+        )
+        assert filtered_count == 3, (
+            f"Most common word after filtering should appear 3 times, got {filtered_count}"
+        )
+
+    def test_unique_word_count_decreases(self, student):
+        analyzer = student.LyricAnalyzer(SAMPLE_LYRICS)
+        original_unique = analyzer.unique_word_count()
+        
+        stop_words = {"we", "will", "you", "your", "a"}
+        analyzer.filter_stopwords(stop_words)
+        
+        new_unique = analyzer.unique_word_count()
+        assert new_unique < original_unique, (
+            f"Unique word count should decrease after filtering.\n"
+            f"  Before: {original_unique}\n"
+            f"  After:  {new_unique}"
         )
 
 

@@ -99,6 +99,12 @@ jobs:
                   pytest .github/python_tests/test_problem_set_4.py::TestCheckRecipes
                   -v --tb=short --no-header --color=yes -s
 
+            - name: "Pantry.add_ingredients() — Challenge"
+              continue-on-error: true
+              run: >
+                  pytest .github/python_tests/test_problem_set_4.py::TestPantryAddIngredients
+                  -v --tb=short --no-header --color=yes -s
+
     problem-3:
         name: "Problem 3 — Song Lyric Word Counter"
         runs-on: ubuntu-latest
@@ -117,6 +123,12 @@ jobs:
               continue-on-error: true
               run: >
                   pytest .github/python_tests/test_problem_set_4.py::TestLyricAnalyzerClass
+                  -v --tb=short --no-header --color=yes -s
+
+            - name: "LyricAnalyzer.filter_stopwords() — Challenge"
+              continue-on-error: true
+              run: >
+                  pytest .github/python_tests/test_problem_set_4.py::TestFilterStopwords
                   -v --tb=short --no-header --color=yes -s
 
     problem-4:
