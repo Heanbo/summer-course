@@ -81,7 +81,7 @@ jobs:
 
             - name: "Permutations (Challenge)"
               run: >
-                  pytest .github/python_tests/test_problem_set_5.py::TestFibonacci
+                  pytest .github/python_tests/test_problem_set_5.py::TestPermutations
                   -v --tb=short --no-header --color=yes -s
 
     problem-3:

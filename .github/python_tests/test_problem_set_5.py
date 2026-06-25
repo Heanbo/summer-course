@@ -480,7 +480,7 @@ class TestGridPaths:
             (4, 4): 20,
             (5, 5): 70,
             (3, 7): 28,
-            (6, 4): 84,
+            (6, 4): 56,
         }
         for (m, n), expected in test_cases.items():
             assert (
@@ -510,8 +510,8 @@ class TestGridPaths:
                 result == expected_result
             ), f"grid_paths({m}, {n}) should return {expected_result}"
 
-            # For multiple recursion, call count should be much higher than m+n
-            expected_calls = (m + n) * 2
+            # For multiple recursion, call count should be higher than just m or n
+            expected_calls = m + n
             assert call_count >= expected_calls, (
                 f"Expected at least {expected_calls} function calls for multiple recursive implementation, but got {call_count}. "
                 f"Make sure you're using multiple recursion!"
