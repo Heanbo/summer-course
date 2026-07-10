@@ -1,1 +1,18 @@
-test commit
+###
+pi = float(3.1415926535)
+small = pi * 6 ** 2
+large = pi * 8.5 ** 2
+small_area_2 = small * 2
+print("ONE SMALL PIE")
+print(small)
+print("ONE LARGE PIE")
+print(large)
+print("TWO SMALL PIEs")
+print(small_area_2)
+
+
+print("CALCULATE ANOTHER PIE DIAMETER")
+new_pie=int(input("enter the diameter? "))
+new_area=pi * (new_pie / 2) ** 2
+print("New Pie Area is")
+print(new_area)
