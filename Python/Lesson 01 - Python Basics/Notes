@@ -10,9 +10,37 @@ print(large)
 print("TWO SMALL PIEs")
 print(small_area_2)
 
-
+pi = float(3.1415926535)
 print("CALCULATE ANOTHER PIE DIAMETER")
 new_pie=int(input("enter the diameter? "))
 new_area=pi * (new_pie / 2) ** 2
 print("New Pie Area is")
 print(new_area)
+
+
+
+
+rint("CALCULATE ANOTHER PIE DIAMETER")
+ew_pie=int(input("enter the diameter? "))
+new_area=pi * (new_pie / 2) ** 2
+print("New Pie Area is")
+print(new_area)
+print("CALCULATE ANOTHER PIE DIAMETER")
+new_pie=int(input("enter the diameter? "))
+new_area=pi * (new_pie / 2) ** 2
+print("New Pie Area is")
+print(new_area)
+
+
+
+
+####Exercise
+name=input("What is your name? ")
+number=int(input("What is your favorite number?"))
+
+#Calculate minus 10
+number_math=number - 10
+
+print("Hello,", name)
+print("Your favorite number is", number)
+print("Your favorite number minus 10 is", number_math)
