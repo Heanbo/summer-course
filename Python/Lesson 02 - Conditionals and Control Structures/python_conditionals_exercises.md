@@ -288,6 +288,8 @@ fruit = "banana"
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
+for number in numbers:
+
 ✅ *Check*: Should print "There are 5 even numbers".
 
 ---
@@ -321,6 +323,10 @@ number = 1
 **Goal**: Use `range()` to create a list of even numbers from 0 to 20.
 
 ✅ *Check*: Should create [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20].
+
+
+list[]
+
 
 ---
 ## Hands-On #3:
