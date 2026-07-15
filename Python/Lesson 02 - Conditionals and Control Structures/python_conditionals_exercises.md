@@ -12,6 +12,14 @@ These exercises focus on using `if`, `elif`, and `else` statements to control pr
 
 **Goal**: Write a Python Script that asks a user for an integer number, and then checks if the number is positive using an `if` statement.
 
+number=int(input("Enter a number. "))
+ if number > 0:
+    print(f"The number {number} is positive!")
+elif number == 0:
+    print(f"That number is zero!")
+elif number <0:
+    print(f"The number {number} is negative!")
+
 
 ✅ *Check*: Should print "The number is positive" if the number is greater than 0.
 
@@ -20,6 +28,14 @@ These exercises focus on using `if`, `elif`, and `else` statements to control pr
 ### Exercise 2: Even or Odd
 
 **Goal**: Write a Python script that asks a user for an integer number.  Check if the number is even or odd using `if` and `else`.
+
+number=int(input("Enter a number. "))
+remainder=number%2
+
+if remainder > 0:
+    print(f"The number {number} is ODD!")
+else:
+    print(f"The number {number} is EVEN!")
 
 
 
@@ -37,6 +53,19 @@ These exercises focus on using `if`, `elif`, and `else` statements to control pr
 - 65+: "Senior"
 
 
+age=int(input("Enter your age"))
+
+if age>=65:
+    print("You are a Senior!")
+elif age>=20:
+    print("You are an Adult!")
+elif age>=13:
+    print("You are a Teenager!")
+else:
+    print("You are a Child!")
+
+
+
 ✅ *Check*: Should print the correct category based on age.
 
 ---
@@ -49,6 +78,21 @@ These exercises focus on using `if`, `elif`, and `else` statements to control pr
 a = 10
 b = 20
 ```
+
+
+number1=int(input("Enter a number. "))
+number2=int(input("Enter another number. "))
+
+if number1>number2:
+    print(f"{number1} is Larger than {number2}.")
+elif number1==number2:
+    print("Both numbers are EQUAL")
+elif number1<number2:
+    print(f"{number2} is Larger than {number1}.")
+else:
+    print("ERROR")
+
+
 
 ✅ *Check*: Should print "{first_number} is larger", "{second_number} is larger", or "The numbers are equal".
 
@@ -63,6 +107,22 @@ b = 20
 - 70-79: C
 - 60-69: D
 - Below 60: F
+
+
+
+score=int(input("Enter your grade"))
+if score >= 90:
+    print(“Grade: A”)
+elif score >= 80:
+    print(“Grade: B”)
+elif score >= 70:
+    print(“Grade: C”)
+elif score >= 60:
+    print(“Grade: D”)
+else:
+    print(“Grade: F”)
+
+
 
 
 ✅ *Check*: Should print the correct letter grade.
@@ -87,6 +147,15 @@ b = 20
 number = 15
 ```
 
+number=int(input("Enter a number. "))
+if number>10 and number<20:
+    print("Number is in range")
+else:
+    print("Out of range.")
+
+
+
+
 ✅ *Check*: Should print "Number is in range" if between 10 and 20, otherwise should print "Out of range".
 
 ---
@@ -94,6 +163,13 @@ number = 15
 ### Exercise 8: Logical OR Operator
 
 **Goal**: Write a python script that checks if a character is a vowel using the `or` operator.  Print "vowel" or "consonant" depending on the input.
+
+
+letter=input("Enter a letter. ")
+if letter=="a" or letter=="e" or letter=="i" or letter=="o" or letter=="u":
+    print("That is a vowel")
+else:
+    print("That is a Consnant")
 
 
 
