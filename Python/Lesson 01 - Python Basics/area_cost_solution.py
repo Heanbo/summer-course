@@ -1,3 +1,5 @@
+# Another Comment
+# Lesson One Area Cost Solution File
 # prompt user for value
 diameter_str = input("Please enter the diameter: ")
 
