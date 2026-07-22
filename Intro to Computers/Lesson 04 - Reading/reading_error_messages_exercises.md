@@ -50,7 +50,7 @@ def greet(name):
 greet("Alice")
 ```
 
-Run it and observe the error:
+Run it and observe the error: #### missing s in print(message)###
 
 ```bash
 python error_example.py
@@ -98,7 +98,8 @@ calculate_total(10, 5)
 ```
 
 Run it and read the error message carefully.
-
+  print(f"Total: {total}")
+                       ^ ^
 **Questions to answer:**
 
 1. What line number does the error point to?
@@ -116,6 +117,9 @@ greet("Bob")
 ```
 
 Run it again and answer the same questions.
+
+def greet(name):
+               ^
 
 **Common SyntaxErrors:**
 - Missing colons (`:`) after `if`, `for`, `while`, `def`
@@ -136,11 +140,13 @@ Create `name_errors.py`:
 
 ```python
 # Error 1
-print(user_name)
+
 user_name = "Charlie"
+print(user_name)
 ```
 
 Run it and observe the error.
+###SWAP LINES
 
 **Exercise steps:**
 
@@ -151,9 +157,9 @@ Run it and observe the error.
 ```python
 # Error 2
 favorite_color = "blue"
-print(f"My favorite color is {favourite_color}")
+print(f"My favorite color is {favorite_color}")
 ```
-
+### favorite spelled wrong
 4. Read the error - does Python suggest a fix?
 5. Fix the typo
 
@@ -177,8 +183,8 @@ Create `type_errors.py`:
 ```python
 # Error 1
 age = 25
-message = "I am " + age + " years old"
-print(message)
+###message = ("I am " + age + " years old")
+print(f"I am " {message}" years old")
 ```
 
 Run it and read the error.
@@ -193,7 +199,7 @@ Fix it using string conversion, then add:
 
 ```python
 # Error 2
-quantity = "5"
+quantity = 5 #NO PARENTHASES, that is string.
 price = 10.50
 total = quantity * price
 print(total)
@@ -210,7 +216,7 @@ Add one more:
 ```python
 # Error 3
 scores = [85, 90, 78, 92]
-index = "2"
+index = 2 ## NO PARENTHASES, That is string.
 print(scores[index])
 ```
 
@@ -229,7 +235,7 @@ Create `index_errors.py`:
 ```python
 # Error 1
 fruits = ["apple", "banana", "cherry"]
-print(fruits[3])
+print(fruits[2]) ##INDEX 3 is too long. 0 , 1 , 2
 ```
 
 **Exercise:**
@@ -243,7 +249,7 @@ Then add:
 
 ```python
 # Error 2
-shopping_list = []
+shopping_list = ['egg'] #LIST WAS EMPTY
 first_item = shopping_list[0]
 print(first_item)
 ```
@@ -255,7 +261,7 @@ print(first_item)
 3. Fix it by checking if the list is empty first:
 
 ```python
-shopping_list = []
+shopping_list = ['egg']
 if len(shopping_list) > 0:
     first_item = shopping_list[0]
     print(first_item)
@@ -280,6 +286,7 @@ Create `key_errors.py`:
 student = {
     "name": "Alice",
     "age": 20,
+    "grade": "B", ##ADDED GRADE
     "major": "Computer Science"
 }
 print(student["grade"])
@@ -306,7 +313,7 @@ inventory = {
     "bananas": 5,
     "oranges": 8
 }
-print(f"We have {inventory['apple']} apples")  # Missing 's'
+print(f"We have {inventory['apples']} apples")  # Missing 's'
 ```
 
 **Questions:**
@@ -327,9 +334,10 @@ print(f"We have {inventory['apple']} apples")  # Missing 's'
 Create `attribute_errors.py`:
 
 ```python
-# Error 1
+# Error 1 ###add ! to string
 text = "hello world"
-text.append("!")  # append() is for lists, not strings
+text = text + '!' ##ADDED
+#text.append("!")  # append() is for lists, not strings
 print(text)
 ```
 
@@ -345,7 +353,7 @@ Then add:
 ```python
 # Error 2
 numbers = [1, 2, 3, 4, 5]
-numbers.appendd(6)  # Extra 'd'
+numbers.append(6)  # Extra 'd'
 print(numbers)
 ```
 
@@ -378,8 +386,8 @@ Create `indentation_errors.py`:
 ```python
 # Error 1
 def calculate_sum(a, b):
-result = a + b
-return result
+    result = a + b #ADDED INDENT
+    return result   #ADDED INDENT
 
 print(calculate_sum(5, 3))
 ```
@@ -397,7 +405,7 @@ Then add:
 def check_grade(score):
     if score >= 90:
         grade = "A"
-      print(f"Grade: {grade}")  # Wrong indentation
+        print(f"Grade: {grade}")  # Wrong indentation
     return grade
 
 print(check_grade(95))
@@ -427,7 +435,7 @@ def process_scores(score_list):
     return average
 
 # This will cause an error
-scores = []
+scores = [20, 30, 10] ##ADDED VALUES
 process_scores(scores)
 ```
 

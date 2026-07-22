@@ -1,1 +1,40 @@
 ##Notes
+
+
+username = input("Enter a username. " )
+
+def validate_username(username:str) -> bool:
+    #1 Must be between 5 and 15 characters long
+    if len(username) <= 5 or len(username) >= 15:
+        print("Username is not within the required length .")
+        return False
+
+    #2 Contain only letters, numbers, and underscores
+    if not username.isalnum() and "_" not in username:
+        print("Username can only contain letters, numbers, and underscores.")
+        return False
+
+    #3 Must start with a letter
+    if not username[0].isalpha():
+        print("Username must start with a letter.")
+        return False
+
+    #4 Cannot end with an underscore
+    if username[-1] == "_":
+        print("Username cannot end with an underscore.")
+        return False
+
+    #5 Contains at least one number
+    if not any(char.isdigit() for char in username):
+        print("Username must contain at least one number.")
+        return False
+    
+    else:
+        return True
+
+
+valid = validate_username(username)
+if valid:
+    print("Username is valid.")
+else:
+    print("Username is invalid.")

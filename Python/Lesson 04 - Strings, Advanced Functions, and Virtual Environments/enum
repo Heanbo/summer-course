@@ -1,0 +1,8 @@
+##enumerate list
+def enumerate_list(passengers):
+    for index, passenger in enumerate(passengers, start=1):
+        print(f"Seat {index}: {passenger}")
+
+passenger_list = ['Lopez', 'Chen', 'Okafor', 'Smith', 'Patel']
+
+enumerate_list(passenger_list)
