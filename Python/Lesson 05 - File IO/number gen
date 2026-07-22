@@ -1,0 +1,10 @@
+# 100 random integers between 50 and 100 into a file called test.txt
+import random  
+count = 0
+with open('test.txt', 'w') as file:
+    file.write('')
+while count < 100:
+    random_integer = random.randint(50, 100)
+    with open('test.txt', 'a') as file:
+        file.write(f"{random_integer}\n")
+    count += 1

@@ -1,0 +1,24 @@
+###make a function compound interest
+# p - principle
+# t - time
+# r - rate
+# n - number of times interest applied per time period default 1
+# def compound_interest(principal: float, rate: float, time: float, compound_frequency=1)-> float:
+#     return principal * (1 + rate / compound_frequency) ** (compound_frequency * time)
+
+# print("Compound Interest Calculator")
+# principal = float(input("Enter the principal amount: "))
+# rate = float(input("Enter the annual interest rate (as a decimal): "))
+# time = float(input("Enter the time in years: "))
+# compound_frequency = int(input("Enter the number of times interest is applied per year (default is 1): ") or 1)
+
+# result = compound_interest(principal, rate, time, compound_frequency)
+# print(f"The amount of money accumulated after {time} years is: {result}")
+
+
+with open('test.txt', 'r') as file:
+    content = file.read()
+    print(content)
+# with open('test.txt', 'w') as file:
+    # file.write('Hello, this is a test file.\n')
+    # file.write('This is the second line.\n')

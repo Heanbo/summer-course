@@ -1,0 +1,62 @@
+##rock paper scissors
+
+import random
+
+game_count = 0
+score = 0
+player = ""
+player_win = 0
+computer_win = 0
+
+print("=-=-=-=-=-=-=-=-=-=-=")
+print("=ROCK PAPER SCISSORS=")
+print("=-=-=-=-=-=-=-=-=-=-=")
+
+#HOW MANY GAMES 1-9 odd only
+while game_count > 9 or game_count <= 0 or game_count % 2 == 0:
+    game_count = int(input("How many games would you like to play? (1-9, odd only). "))
+    games_to_play = game_count
+
+#ACTUAL GAME
+
+while games_to_play > 0:
+    round = game_count - games_to_play + 1
+    if score / game_count > 0.5:
+        print(f"You win! Your score is {score}/{game_count}.")
+        break
+    print("=-=-=-=-=-=-=-=-=-=-=")
+    print(f"    Round {round}")
+    print("=-=-=-=-=-=-=-=-=-=-=")
+    computer = random.choice(["rock", "paper", "scissors"])
+    #print(computer) #DEBUG COMPUTER CHOICE
+
+    while player not in ["rock", "paper", "scissors"]:
+        player = input("Enter rock, paper, or scissors: ")
+    print(f"You chose {player}, computer chose {computer}.")
+
+    if player == computer:
+        print("It's a tie!")
+    elif (player == "rock" and computer == "scissors") or \
+         (player == "paper" and computer == "rock") or \
+         (player == "scissors" and computer == "paper"):
+        #print("You win!")
+        player = ""
+        score += 1
+        player_win += 1
+    else:
+        #print("Computer wins!")
+        player = ""
+        score -= 1
+        computer_win += 1
+
+    games_to_play -= 1
+
+if score / game_count > 0.5:
+    print(f"You win! Your score is {score}/{game_count}.")
+else:
+    print(f"You lose! Your score is {score}/{game_count}.")
+
+#again = input("Play again?")
+ #   if again == yes
+
+    

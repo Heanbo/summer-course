@@ -16,6 +16,8 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Run the script and confirm it prints the full path of your working directory.
 
 ---
+import os
+os.getcwd()
 
 ### Exercise 2: Change Directory
 
@@ -24,6 +26,10 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Ensure that you are now in the `projects` directory. Create it first if it doesn't exist.
 
 ---
+import os
+os.mkdir('projects')
+os.chdir('projects')
+os.getcwd() #Verify dir
 
 ### Exercise 3: List Directory Contents
 
@@ -32,6 +38,8 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Compare the output to the `ls` command in your terminal.
 
 ---
+import os
+os.listdir()
 
 ### Exercise 4: Create a Directory
 
@@ -40,6 +48,9 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Verify the directory exists using `pathlib` or by checking in your terminal.
 
 ---
+import os
+os.mkdir('data')
+os.listdir() #Verify creation
 
 ### Exercise 5: Create Nested Directories
 
@@ -48,6 +59,11 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Use `pathlib` to confirm creation.
 
 ---
+import os
+os.makedirs('a/b/c')
+os.listdir() #verify steps
+os.chdir('a')
+os.listdir()
 
 ### Exercise 6: Remove a File
 
@@ -56,6 +72,9 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Use `pathlib` to validate that the file no longer exists.
 
 ---
+import os
+os.chdir('AI2C-python-files')
+os.remove('temp.txt')
 
 ### Exercise 7: Remove an Empty Directory
 
@@ -64,6 +83,7 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: If the directory is not empty, this will raise an error. Try clearing it first.
 
 ---
+os.rmdir('old_data')
 
 ### Exercise 8: Rename a File
 
@@ -72,6 +92,7 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Confirm the new name exists and the old one doesn't.
 
 ---
+os.rename('example.txt', 'renamed_example.txt')
 
 ### Exercise 9: Check File or Directory Type
 
@@ -80,6 +101,9 @@ Clone the repository at `https://github.com/shafe123/AI2C-python-files.git`.
 ✅ *Check*: Create a test file or directory and run the script to see the correct output.
 
 ## Hands-On #2
+
+os.stat('target')
+
 
 This series of exercises helps you understand how to create, read, append, and handle files in Python using both built-in `open()` and the `pathlib` module.
 
