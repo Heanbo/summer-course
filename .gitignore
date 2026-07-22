@@ -264,3 +264,5 @@ Backup of *.doc*
 
 # Visio autosave temporary files
 *.~vsd*
+
+Python/Lesson 05 - File IO/file.txt
