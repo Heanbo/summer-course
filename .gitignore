@@ -266,3 +266,5 @@ Backup of *.doc*
 *.~vsd*
 
 Python/Lesson 05 - File IO/file.txt
+
+Python/Lesson 04 - Strings, Advanced Functions, and Virtual Environments/demonstration_venv/
