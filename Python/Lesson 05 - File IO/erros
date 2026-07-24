@@ -1,0 +1,3 @@
+userfloat = int(input("Enter a number"))
+
+print(userfloat)
