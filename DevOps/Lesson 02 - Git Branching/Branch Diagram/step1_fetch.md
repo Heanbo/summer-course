@@ -2,7 +2,7 @@
 
 Fetch the latest changes from the remote repository.
 
-```mermaid
+mermaid
 gitGraph
     commit id: "Initial commit"
     commit id: "Main commit 1"
