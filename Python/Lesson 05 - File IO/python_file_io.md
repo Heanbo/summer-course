@@ -116,6 +116,8 @@ This series of exercises helps you understand how to create, read, append, and h
 ✅ *Check*: Open `log.txt` and verify the line was written.
 
 ---
+from pathlib import Path
+
 
 ### Exercise 11: Read the File
 
