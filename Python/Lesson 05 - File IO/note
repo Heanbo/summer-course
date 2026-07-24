@@ -16,9 +16,12 @@
 # print(f"The amount of money accumulated after {time} years is: {result}")
 
 
-with open('test.txt', 'r') as file:
-    content = file.read()
-    print(content)
-# with open('test.txt', 'w') as file:
-    # file.write('Hello, this is a test file.\n')
-    # file.write('This is the second line.\n')
+# with open('test.txt', 'r') as file:
+#     content = file.read()
+#     print(content)
+# # with open('test.txt', 'w') as file:
+#     # file.write('Hello, this is a test file.\n')
+#     # file.write('This is the second line.\n')
+
+
+

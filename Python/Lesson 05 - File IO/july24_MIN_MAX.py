@@ -6,8 +6,7 @@ import os
 
 
 ### VARIABLES ###
-run = 'Yes'
-runup = run.upper()
+
 
 ### FUNCTIONS ###
 def numbergen (lines:int) -> int:
@@ -42,25 +41,37 @@ def min_max_avg(file_path: str) -> None:
     print(f"Min: {min_value}, Max: {max_value}")
     print(f"Average: {total / number_of_lines}")
 
-
-### WELCOME MESSAGE ###
-os.system('cls')
-#print(f'\n\n\n')
-print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-print("=                  Number Gen and Min_Max_AVG Conversions                =")
-print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-print("")
-
-
-### EXECUTION ###
-while run.upper() != 'Yes':
-    print(f"DEBUG: EXECUTION {run.upper} {runup}")
-    gen = 'NONE'
-    gen = input("Computer > Do you want to generate a new number set? (Yes/No): \nYou > ")
-    if gen.upper == 'Yes':
-        numbergen(100)
-    min_max_avg('july.txt')
+def Banner():
+    os.system('cls')
+    #print(f'\n\n\n')
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+    print("=                  Number Gen and Min_Max_AVG Conversions                =")
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
     print("")
-    run = input("Computer > Do you want to run again? (Yes/No):\nYou > ")
+    
+def menu():
+    Banner()
+    try:
+        null = input("Computer > Press Enter to Begin... \nComputer > Or press CTR + C to Exit \nYou > ")
+        execution()
+    except:
+        print("Program Exited")
 
-print("END OF CODE")
+def execution():
+    run = 'yes'
+    while run.upper() == 'YES':
+        gen = 'NONE'
+        gen = input("Computer > Do you want to generate a new number set? (Yes/No): \nYou > ")
+        if gen.upper() == 'YES':
+            numbergen(100)
+        min_max_avg('july.txt')
+        print("")
+        run = input("Computer > Do you want to run again? (Yes/No):\nYou > ")
+        Banner()
+
+
+### Execution ###
+menu()
+
+Banner()
+print("Computer > Goodbye.")
