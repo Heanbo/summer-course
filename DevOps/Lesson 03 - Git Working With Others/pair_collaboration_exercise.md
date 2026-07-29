@@ -104,6 +104,8 @@ You'll switch responsibilities throughout the exercise, so both partners get pra
 
 ## Part 2: Initial Project Setup (Partner A)
 
+**Note**:  You will need to use a classic token to access your partner's repository.
+
 ### Step 3: Clone and Set Up Project Structure
 
 Partner A will create the initial project structure:
