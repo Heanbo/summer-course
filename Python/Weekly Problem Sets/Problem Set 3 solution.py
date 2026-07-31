@@ -14,53 +14,53 @@ import turtle
 ## Solution Problem 1 - Dice Roll Simulator
 ########################
 
-# def roll(sides):
-#     """Simulate rolling a single die with the given number of sides."""
-#     return random.randint(1, sides)
+def roll(sides):
+    """Simulate rolling a single die with the given number of sides."""
+    return random.randint(1, sides)
 
-# def roll_many(num_dice, sides):
-#     """Roll multiple dice and return a list of results."""
-#     results = []
-#     for _ in range(num_dice):
-#         results.append(roll(sides))
-#     return results
+def roll_many(num_dice, sides):
+    """Roll multiple dice and return a list of results."""
+    results = []
+    for _ in range(num_dice):
+        results.append(roll(sides))
+    return results
 
-# # Movement check (2d6)
-# print("=== MOVEMENT CHECK (2d6) ===")
-# movement_rolls = roll_many(2, 6)
-# print(f"Roll 1: {movement_rolls[0]}   Roll 2: {movement_rolls[1]}   Total: {sum(movement_rolls)}")
-# print()
+# Movement check (2d6)
+print("=== MOVEMENT CHECK (2d6) ===")
+movement_rolls = roll_many(2, 6)
+print(f"Roll 1: {movement_rolls[0]}   Roll 2: {movement_rolls[1]}   Total: {sum(movement_rolls)}")
+print()
 
-# # Attack check (1d20)
-# print("=== ATTACK CHECK (1d20) ===")
-# attack_roll = roll(20)
-# if attack_roll == 20:
-#     print(f"Roll: {attack_roll} — CRITICAL HIT!")
-# elif attack_roll == 1:
-#     print(f"Roll: {attack_roll} — CRITICAL MISS!")
-# else:
-#     print(f"Roll: {attack_roll}")
-# print()
+# Attack check (1d20)
+print("=== ATTACK CHECK (1d20) ===")
+attack_roll = roll(20)
+if attack_roll == 20:
+    print(f"Roll: {attack_roll} — CRITICAL HIT!")
+elif attack_roll == 1:
+    print(f"Roll: {attack_roll} — CRITICAL MISS!")
+else:
+    print(f"Roll: {attack_roll}")
+print()
 
-# # Damage roll (3d8)
-# print("=== DAMAGE ROLL (3d8) ===")
-# damage_rolls = roll_many(3, 8)
-# total = sum(damage_rolls)
-# average = total / len(damage_rolls)
-# print(f"Rolls: {damage_rolls}   Total: {total}   Average: {average:.1f}")
-# print()
+# Damage roll (3d8)
+print("=== DAMAGE ROLL (3d8) ===")
+damage_rolls = roll_many(3, 8)
+total = sum(damage_rolls)
+average = total / len(damage_rolls)
+print(f"Rolls: {damage_rolls}   Total: {total}   Average: {average:.1f}")
+print()
 
-# # Simulation (1000 damage rolls)
-# print("=== SIMULATION (1000 damage rolls) ===")
-# total_damage_sum = 0
-# for _ in range(1000):
-#     damage = sum(roll_many(3, 8))
-#     total_damage_sum += damage
+# Simulation (1000 damage rolls)
+print("=== SIMULATION (1000 damage rolls) ===")
+total_damage_sum = 0
+for _ in range(1000):
+    damage = sum(roll_many(3, 8))
+    total_damage_sum += damage
 
-# simulated_avg = total_damage_sum / 1000
-# theoretical_avg = 3 * 4.5  # Three d8s, each averaging 4.5
-# print(f"Simulated average total: {simulated_avg:.2f}")
-# print(f"Theoretical average:     {theoretical_avg}")
+simulated_avg = total_damage_sum / 1000
+theoretical_avg = 3 * 4.5  # Three d8s, each averaging 4.5
+print(f"Simulated average total: {simulated_avg:.2f}")
+print(f"Theoretical average:     {theoretical_avg}")
 
 ########################
 ## Solution Problem 1 - Challenge
