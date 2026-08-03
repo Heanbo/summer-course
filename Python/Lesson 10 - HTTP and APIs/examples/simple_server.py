@@ -10,11 +10,23 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST", "DELETE", "PATCH", "PUT"])
 def hello_world():
-    result = "<h1>Hello, world</h1>"
+    result = f"<h1>Hello, world</h1> as {request.method}"
     if request.args:
-        result += "\n- Server received: " + json.dumps(
+        result += "\n- Query params received: " + json.dumps(
             {key: val for key, val in request.args.items()}
         )
+    try:
+        if request.json:
+            result += "\n- Json received: " + json.dumps(
+                {key: val for key, val in request.json.items()}
+            )
+    except:
+        pass
+    if request.headers:
+        result += "\n- Headers received: " + json.dumps(
+            {key: val for key, val in request.headers.items()}
+        )
+    result += "\n"
     return result
 
 
