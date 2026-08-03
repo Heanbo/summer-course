@@ -6,6 +6,8 @@
 
 Work on a new branch named `python/problem-set-4` for this problem set.  Your submitted script must be named `Problem Set 4 starter.py` or `Problem Set 4.py` for it to be picked up by the autograder.  Once you have passed all tests, you can merge your code back into main.
 
+You may need to enable those workflows in GitHub Actions.  The workflows will not run automatically before they have been enabled.
+
 ## Submitting Your Work
 As stated above, you should create a new branch and checkout that branch for this problem set called `python/problem-set-4`.  The general flow is shown below.
 
