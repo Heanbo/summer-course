@@ -1,0 +1,56 @@
+# ============================================================
+# terraform-checks.yml — Terraform Validation Pipeline
+# ============================================================
+#
+# ONLY runs when files inside terraform-starter-lab/ are changed.
+# Python/CI changes will NOT trigger this workflow.
+#
+# ============================================================
+
+name: Terraform Checks
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform-starter-lab/**"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "terraform-starter-lab/**"
+
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: 🏗️ Terraform Validate & Test
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    defaults:
+      run:
+        working-directory: terraform-starter-lab
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform test
+        run: terraform test

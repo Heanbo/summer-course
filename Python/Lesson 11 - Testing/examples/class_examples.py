@@ -8,5 +8,5 @@ def test_add():
 
 
 def test_add_negative():
-    assert add(-5, -7) == -12
+    assert add(-5, -7) == -12, "this fails"
     assert add(-5, 5) == 0
