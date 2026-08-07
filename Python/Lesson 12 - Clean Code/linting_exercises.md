@@ -87,6 +87,8 @@ greet("world")
 
 **Goal**: Set up autoformatting and linting with `pre-commit` hooks.
 
+First, read sections 1 through 7 of this [pre-commit guide](https://gist.github.com/MangaD/6a85ee73dd19c833270524269159ed6e), then do the steps below.
+
 1. Create a `.pre-commit-config.yaml` file with a configuration that includes the black formatter and mypy for type checking.
 
 2. Install and run the pre-commit hooks. Note the output of the command.

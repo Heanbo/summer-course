@@ -1,0 +1,128 @@
+# ============================================================
+# learn-ci.yml — Python Continuous Integration Pipeline 🤖
+# ============================================================
+#
+# This workflow:
+# 1. Checks out code
+# 2. Sets up Python
+# 3. Installs dependencies from requirements.txt
+# 4. Runs tests
+# 5. Creates readable test reports
+# 6. Uploads reports as artifacts
+#
+# ============================================================
+
+name: Learn CI - Run Python Tests 🧪
+
+
+# ============================================================
+# WHEN DOES IT RUN?
+# ============================================================
+
+on:
+  # Run when code is pushed to main
+  push:
+    branches:
+      - main
+
+  # Run when pull requests target main
+  pull_request:
+    branches:
+      - main
+
+  # Allow manual runs from Actions tab
+  workflow_dispatch:
+
+
+# ============================================================
+# JOBS
+# ============================================================
+
+jobs:
+
+  test:
+
+    name: 🐍 Run Python Tests
+
+    runs-on: ubuntu-latest
+
+    # Only allow reading repository contents
+    permissions:
+      contents: read
+
+
+    # ========================================================
+    # STEPS
+    # ========================================================
+
+    steps:
+
+
+      # ------------------------------------------------------
+      # STEP 1: Download the repository code
+      # ------------------------------------------------------
+
+      - name: 📥 Step 1 - Checkout code
+        uses: actions/checkout@v4
+
+
+      # ------------------------------------------------------
+      # STEP 2: Install Python
+      # ------------------------------------------------------
+
+      - name: 🐍 Step 2 - Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+          # Cache pip packages to make future runs faster
+          cache: "pip"
+
+
+      # ------------------------------------------------------
+      # STEP 3: Install project dependencies. -m (Python finds the pip module that belongs to that exact Python interpreter and runs it.)
+      # ------------------------------------------------------
+
+      - name: 📦 Step 3 - Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+      # ------------------------------------------------------
+      # STEP 4: Run tests and create reports
+      # ------------------------------------------------------
+
+      - name: 🧪 Step 4 - Run tests
+        run: |
+          mkdir reports
+
+          python -m pytest test_hello.py -v \
+            --junitxml=reports/test-results.xml \
+            --html=reports/test-report.html \
+            --self-contained-html
+
+
+      # ------------------------------------------------------
+      # STEP 5: Display test results in GitHub Actions. If gives it conditions based on last step
+      # ------------------------------------------------------
+
+      - name: 📊 Step 5 - Publish Test Summary
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Pytest Results
+          path: reports/test-results.xml
+          reporter: java-junit
+
+
+      # ------------------------------------------------------
+      # STEP 6: Upload readable reports
+      # ------------------------------------------------------
+
+      - name: 📦 Step 6 - Upload Test Reports Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-test-reports
+          path: reports/

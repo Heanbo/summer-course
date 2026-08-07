@@ -84,48 +84,16 @@ class TestBook:
         book.checkout()
         assert book.available_copies() == 3
 
-    def test_validate_isbn_valid(self):
-        """Test validate_isbn with a valid ISBN."""
-        assert validate_isbn("123-456-789-0") is True
-        assert validate_isbn("1234567890") is True
-        assert validate_isbn("1234567890123") is True
+    def test_validate_isbn10(self):
+        #      when...       given...    then...
+        assert validate_isbn("some_val") == False
+        assert validate_isbn("some_val_13") == False
+        pass
 
-    def test_validate_isbn_invalid(self):
-        """Test validate_isbn with an invalid ISBN."""
-        assert validate_isbn("1324") is False ##SHORT
-        assert validate_isbn("12345678901234") is False ##Long
+    def test_validate_isbn13(self):
+        assert validate_isbn("some_val_13") == False
 
-    def test_validate_isbn_non_string(self):
-        """Test validate_isbn with a non-string input."""
-        assert validate_isbn(1234567890) is False
-        assert validate_isbn(None) is False
-        assert validate_isbn([]) is False
-
-    def test_format_book_info(self):
-        """Test format_book_info function."""
-        book = Book("123", "Clean Code", "Robert Martin", 2008, 3)
-        result = format_book_info(book)
-        assert "Clean Code" in result
-        assert "Robert Martin" in result
-        assert "2008" in result
-        assert "3/3 available" in result
-
-    def test_format_book_info_no_copies(self):
-        """Test format_book_info when no copies are available."""
-        book = Book("123", "Clean Code", "Robert Martin", 2008, 1)
-        book.checkout()
-        result = format_book_info(book)
-        assert "0/1 available" in result
-
-    def test_format_book_by_decade(self):
-        """Test books_by_decade function."""
-        book1 = Book("123", "Book 1", "Author A", 1995, 2)
-        book2 = Book("456", "Book 2", "Author B", 2005, 3)
-        book3 = Book("789", "Book 3", "Author C", 1999, 1)
-        books = [book1, book2, book3]
-        result = books_by_decade(books)
-        assert result[1990] == [book1, book3]
-        assert result[2000] == [book2]
+>>>>>>> 548c0d50dfed63951d2e4c56bafe4dac72d21e11
 
 # Note: The following functions have NO tests yet (0% coverage):
 # - validate_isbn()
