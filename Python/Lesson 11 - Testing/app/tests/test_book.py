@@ -93,8 +93,6 @@ class TestBook:
     def test_validate_isbn13(self):
         assert validate_isbn("some_val_13") == False
 
->>>>>>> 548c0d50dfed63951d2e4c56bafe4dac72d21e11
-
 # Note: The following functions have NO tests yet (0% coverage):
 # - validate_isbn()
 # - format_book_info()
