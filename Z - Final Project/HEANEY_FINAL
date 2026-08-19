@@ -1,0 +1,42 @@
+### 1 gain remote access to mission control
+###solve telemetry systems (problem 1)
+# problem 2
+# problem 3
+
+# http request to 20.127.202.175 on port 8000
+
+from pickle import GET
+
+import requests
+
+# response = requests.get("http://20.127.202.175:8000")
+# print(response.text)
+# print(response.status_code)
+
+
+# X-Username: "chief.engineer"
+# X-Password: "ares-vallis-7"
+
+# curl.exe -H "X-Username: chief.engineer" -H "X-Password: ares-vallis-7" http://20.127.202.175:8000
+
+# Connect via SSH and begin restoration:
+
+# ssh chief.tech@20.127.202.17
+
+# 8.0K    ./Folder22/Folder26 - telemetry
+# 8.0K    ./Folder37/Folder86
+
+
+
+
+#problem 1
+
+#problem 2
+# Pizza 1 Efficiency: 17.671458676442587 square inches per unit of dough
+# Pizza 2 Efficiency: 8.660254037844386 square inches per unit of dough
+# Pizza 3 Efficiency: 18.0 square inches per unit of dough
+
+
+#problem 3
+
+#Total fuel required: 3332538
