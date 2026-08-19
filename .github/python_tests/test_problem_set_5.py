@@ -707,28 +707,27 @@ class TestDeleteUser:
 
 
 @pytest.mark.challenge
-class TestGetAllUsers:
+class TestGetUsersPage:
     """Tests for problem 3, get_all_users function (challenge)"""
 
-    def test_get_all_users_exists(self, student):
-        assert_has_function(student, "get_all_users")
+    def test_get_users_page_exists(self, student):
+        assert_has_function(student, "get_users_page")
 
-    def test_get_all_users_basic(self, student):
-        users = student.get_all_users()
-        assert isinstance(users, list), "get_all_users should return a list"
+    def test_get_users_basic(self, student):
+        users = student.get_users_page()
+        assert isinstance(users, list), "get_users_page should return a list"
         assert len(users) > 0, "Should return users"
-        assert len(users) == 10, "JSONPlaceholder has 10 users"
         # Check that users are dictionaries with expected fields
         assert all("id" in user for user in users), "All users should have 'id' field"
         assert all("email" in user for user in users), "All users should have 'email' field"
-        assert all("name" in user for user in users), "All users should have 'name' field"
+        assert all("first_name" in user for user in users), "All users should have 'first_name' field"
 
-    def test_get_all_users_ids(self, student):
+    def test_get_users_ids(self, student):
         """Test that all user IDs are present"""
-        users = student.get_all_users()
+        users = student.get_users_page()
         user_ids = [user["id"] for user in users]
-        expected_ids = list(range(1, 11))
-        assert user_ids == expected_ids, "Should return users with IDs 1-10"
+        expected_ids = list(range(1, 7))
+        assert user_ids == expected_ids, "Should return users with IDs 1-6"
 
 
 @pytest.mark.challenge

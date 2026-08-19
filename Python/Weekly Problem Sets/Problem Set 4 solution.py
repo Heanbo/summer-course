@@ -223,7 +223,7 @@ class LyricAnalyzer:
         """Print complete word analysis report."""
         print("=== WORD COUNT ===")
         word_count = self.count_words()
-        
+
         # Get sorted list of words
         words_sorted = list(word_count.keys())
         words_sorted.sort()
@@ -232,7 +232,7 @@ class LyricAnalyzer:
             print(f"{word:10}: {word_count[word]}")
 
         print(f"\nUnique words: {self.unique_word_count()}")
-        
+
         most_common, count = self.most_common_word()
         print(f"Most common word: '{most_common}' — {count} times")
 

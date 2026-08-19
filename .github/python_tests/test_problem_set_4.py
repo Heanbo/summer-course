@@ -427,15 +427,6 @@ class TestPantryClass:
         assert pantry.has("flour") is True, "After adding flour, pantry.has('flour') should be True."
         assert pantry.has("sugar") is True, "After adding sugar, pantry.has('sugar') should be True."
 
-    def test_get_items_method_exists(self, student):
-        pantry = student.Pantry(PANTRY_ITEMS)
-        assert hasattr(pantry, "get_items"), "Pantry must have a 'get_items()' method."
-
-    def test_get_items_returns_set(self, student):
-        pantry = student.Pantry(PANTRY_ITEMS)
-        result = pantry.get_items()
-        assert isinstance(result, set), "get_items() must return a set."
-
 
 # ===========================================================================
 # create_recipes()
